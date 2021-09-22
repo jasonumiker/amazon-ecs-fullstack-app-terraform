@@ -1,0 +1,5 @@
+aws_profile = "default"
+aws_region = "ap-southeast-2"
+environment_name = "development"
+repository_name = "amazon-ecs-fullstack-app-terraform"
+repository_owner = "jasonumiker"

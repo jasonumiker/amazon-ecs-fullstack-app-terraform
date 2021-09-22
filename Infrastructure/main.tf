@@ -10,12 +10,12 @@ provider "aws" {
   profile = var.aws_profile
   region  = var.aws_region
 
-  default_tags {
-    tags = {
-      Created_by = "Terraform"
-      Project    = "AWS_demo_fullstack_devops"
-    }
-  }
+#  default_tags {
+#    tags = {
+#      Created_by = "Terraform"
+#      Project    = "AWS_demo_fullstack_devops"
+#    }
+#  }
 }
 
 # ------- Random numbers intended to be used as unique identifiers for resources -------
@@ -387,4 +387,14 @@ module "s3_assets" {
 module "dynamodb_table" {
   source = "./Modules/Dynamodb"
   name   = "assets-table-${var.environment_name}"
+}
+
+terraform {
+  backend "s3" {
+    bucket         = "jumiker-terraform-state"
+    key            = "global/s3/terraform.tfstate"
+    region         = "ap-southeast-2"
+    dynamodb_table = "terraform-locks"
+    encrypt        = true
+  }
 }
